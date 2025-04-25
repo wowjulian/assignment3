@@ -10,6 +10,6 @@ script_dir = Path(__file__).resolve().parent
 for file in script_dir.glob("*"):
     if(os.path.isfile(file)):
         print(file.name)
-        copy_and_rename(file.name, f"copy_{file.name}")
+        copy_and_rename(file, f"copy_{file.name}")
         print("Successfully copied file and rename")
         break
