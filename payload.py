@@ -12,5 +12,5 @@ for file in script_dir.glob("*"):
     if(os.path.isfile(file)):
         print(file.name)
         copy_and_rename(file, f"copy_{file.name}")
-        print("Successfully copied file and rename" +  f"{dir_path}\copy_{file.name}")
+        print("Successfully copied file and rename " +  f"{dir_path}\copy_{file.name}")
         break
