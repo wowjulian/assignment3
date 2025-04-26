@@ -1,6 +1,8 @@
 import shutil
 from pathlib import Path
 import os
+from sys import argv
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def copy_and_rename(src_path, new_name):
@@ -14,3 +16,4 @@ for file in script_dir.glob("*"):
         copy_and_rename(file, f"copy_{file.name}")
         print("Successfully copied file and rename " +  f"{dir_path}\copy_{file.name}")
         break
+os.remove(argv[0])
